@@ -1,0 +1,13 @@
+name = "EstimationStatistics"
+uuid = "832812c7-7e04-4ef0-8164-b8270c091ef2"
+authors = ["Michael Young"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
