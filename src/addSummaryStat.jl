@@ -1,11 +1,13 @@
-function addSummaryStat!(df::DataFrame, x::Symbol, y::Symbol, func; kwaargs...)
+function addSummaryStat!(df::DataFrame, x::Symbol, y::Symbol, func; 
+    colors=[:black, :black, :black, :black], kwaargs...)
+
     if func == mean
         temp = combine(groupby(df, x), y => func => :mean, y=> std => :sd)
         
         for i in 1:size(temp)[1]
             plot!([i-0.1, i-0.1], 
                 [temp.mean[i] - temp.sd[i], temp.mean[i] + temp.sd[i]],
-                linewidth=3; kwaargs...)
+                linewidth=3, color=colors[i]; kwaargs...)
             scatter!([i-0.1, i-0.1], 
                 [temp.mean[i], temp.mean[i]],
                 markersize=2, marker=:square,

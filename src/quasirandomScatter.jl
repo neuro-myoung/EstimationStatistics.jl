@@ -4,7 +4,7 @@ function quasirandom(x, y)
 	grps = unique(x)		
 	nGroups = length(grps)
 	
-	width= 0.8/nGroups
+	width= 0.75/nGroups
 
 	k = Array{UnivariateKDE}(undef, nGroups)
 	maxDensity = zeros(nGroups)

@@ -1,8 +1,32 @@
-function meanDifference(x, y)
+"""
+	meanDiff(x, y)
+	
+Calculates the difference in the means between two arrays `x` and `y`.
+
+```jldoctest
+julia> meanDiff([3,5,4,10], [6, 6, 3, 4])
+0.75
+```
+"""
+function meanDiff(x, y)
     return mean(x) - mean(y)
 end
 
-function BCaBoot(x, func, iter::Int64; α=0.05)
+"""
+	medianDiff(x, y)
+	
+Calculates the difference in the means between two arrays `x` and `y`.
+
+```jldoctest
+julia> medianDiff([3,5,4,10], [6, 6, 3, 4])
+0.75
+```
+"""
+function medianDiff(x, y)
+    return median(x) - median(y)
+end
+
+function BCaBoot(x, func; iter::Int64=10000, α::Float64=0.05)
     θₛ = func(x)
     boot = zeros(iter)
     
@@ -26,7 +50,7 @@ function BCaBoot(x, func, iter::Int64; α=0.05)
     return Bootstrap(boot, ConfidenceInterval(ABC))
 end
 
-function BCaBoot(x, y, func, iter::Int64; α=0.05)
+function BCaBoot(x, y, func; iter::Int64=10000, α::Float64=0.05)
     θₛ = func(x,y)
     boot = zeros(iter)
     
