@@ -11,7 +11,8 @@ using DataFrames
 include("quasirandomScatter.jl")
 include("jackknife.jl")
 include("bootstrap.jl")
-include("GardnerAltmanPlot.jl")
+include("estimationPlot.jl")
+include("addSummaryStat.jl")
 
 struct ConfidenceInterval
     low::Float64
@@ -26,7 +27,7 @@ struct Bootstrap
 end
 
 export Bootstrap, ConfidenceInterval
-export quasirandomScatter, GardnerAltmanPlot
+export quasirandomScatter, addSummaryStat!, estimationPlot
 export meanDifference, BCaBoot
 
 end
