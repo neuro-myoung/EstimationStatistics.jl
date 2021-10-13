@@ -1,4 +1,4 @@
-function estimationPlot(x, xLocs, bootArray; xticks=false, kwargs...)
+function estimationPlot(x, xLocs, bootArray; scaleKDE=2, xticks=false, kwargs...)
     kArray = kde.([b.boot for b in bootArray])
     lbs = [b.ci.low for b in bootArray]
     ubs = [b.ci.high for b in bootArray]
@@ -6,7 +6,7 @@ function estimationPlot(x, xLocs, bootArray; xticks=false, kwargs...)
     uBArray = ubs .+ 0.15 .* (ubs .- lbs)
     shapes = []
     
-    scaleFactor = 2*maximum(vcat([k.density for k in kArray]...))
+    scaleFactor = scaleKDE*maximum(vcat([k.density for k in kArray]...))
     xLocs = scaleFactor.*xLocs .- 0.5 * scaleFactor
     nBreaks = length(unique(x))
     
@@ -39,8 +39,8 @@ function estimationPlot(x, xLocs, bootArray; xticks=false, kwargs...)
                 xlim=(0,nBreaks*scaleFactor))
         end
         scatter!([xLocs[i]], 
-            [mean(bootArray[i].boot)], markersize=5, color=:white,
-        markerstrokewidth=2, dpi=300)
+            [mean(bootArray[i].boot)], markersize=4, color=:white,
+        markerstrokewidth=1, dpi=300)
     end
     hline!([0], color=:black, linewidth=1, linestyle=:dash)
 

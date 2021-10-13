@@ -1,10 +1,15 @@
 vandercorput(num::Integer, base::Integer) = sum(d * Float64(base) ^ -ex for (ex,d) in enumerate(digits(num, base=base)))
 
-function quasirandom(x, y)  
-	grps = unique(x)		
-	nGroups = length(grps)
+function quasirandom(x, y;order=:none, squish=0.9)
 	
-	width= 0.75/nGroups
+	if order == :none
+		grps = unique(x)
+	else
+		grps = order
+	end
+
+	nGroups = length(grps)
+	width= squish/nGroups
 
 	k = Array{UnivariateKDE}(undef, nGroups)
 	maxDensity = zeros(nGroups)
@@ -29,11 +34,11 @@ function quasirandom(x, y)
 	return x_jitter .- 0.5
 end
 
-function quasirandomScatter(x, y; kwargs...)
+function quasirandomScatter(x, y; order=:none, squish=0.9, kwargs...)
 
 	plt = scatter(x, y; markercolor=:white, markerstrokewidth=0,
 		xlim=(0, length(unique(x))), margin=2mm)
-	scatter!(quasirandom(x, y), y; kwargs...)
+	scatter!(quasirandom(x, y;order=order, squish), y; kwargs...)
 
 	return plt
 end
