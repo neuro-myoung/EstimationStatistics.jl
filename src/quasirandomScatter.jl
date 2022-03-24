@@ -1,7 +1,7 @@
 vandercorput(num::Integer, base::Integer) = sum(d * Float64(base) ^ -ex for (ex,d) in enumerate(digits(num, base=base)))
 
-function quasirandom(x, y;order=:none, squish=0.9)
-	
+function quasirandom(x::Vector, y::Vector; order=:none, squish=0.9::Float64)
+		
 	if order == :none
 		grps = unique(x)
 	else
@@ -34,11 +34,16 @@ function quasirandom(x, y;order=:none, squish=0.9)
 	return x_jitter .- 0.5
 end
 
-function quasirandomScatter(x, y; order=:none, squish=0.9, kwargs...)
+function quasirandomScatter(x::Vector, y::Vector; order=:none, squish=0.9::Float64, kwargs...)
 
-	plt = scatter(x, y; markercolor=:white, markerstrokewidth=0,
-		xlim=(0, length(unique(x))), margin=2mm)
-	scatter!(quasirandom(x, y;order=order, squish), y; kwargs...)
+	plt = scatter(quasirandom(x, y; order=order, squish), y; kwargs...)
+
+	return plt
+end
+
+function quasirandomScatter!(x, y; order=:none, squish=0.9, kwargs...)
+
+	plt=scatter(quasirandom(x, y; order=order, squish), y; kwargs...)
 
 	return plt
 end
