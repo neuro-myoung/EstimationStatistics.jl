@@ -26,7 +26,7 @@ function medianDiff(x, y)
     return median(x) - median(y)
 end
 
-function BCaBoot(x::Vector, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::AbstractArray, func; iter::Int64=10000, α::Float64=0.05)
     θₛ = func(x)
     boot = zeros(iter)
     
@@ -61,7 +61,7 @@ Computational Statistics Handbook with MATLAB 2002.
 julia> ADD LATER
 ```
 """
-function BCaBoot(x::Vector, y::Vector, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::AbstractArray, y::AbstractArray, func; iter::Int64=10000, α::Float64=0.05)
     θₛ = func(x,y)
     boot = zeros(iter)
     
