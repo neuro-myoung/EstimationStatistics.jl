@@ -11,6 +11,13 @@ Estimation plots offer a more transparent representation of data and focuses on 
 <br>
 <br>
 
+## Example plot:
+
+![](https://github.com/neuro-myoung/EstimationStatistics.jl/blob/0997153e9b5dd5375869bd8c44d175aaf5b81818/examples/unpaired-two-sample-ga.png)
+
+<br>
+<br>
+
 ## Built-in Plots:
 
 * Quasirandom Scatter
