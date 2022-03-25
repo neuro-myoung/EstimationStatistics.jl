@@ -26,7 +26,7 @@ function medianDiff(x, y)
     return median(x) - median(y)
 end
 
-function BCaBoot(x, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::Vector, func; iter::Int64=10000, α::Float64=0.05)
     θₛ = func(x)
     boot = zeros(iter)
     
@@ -61,7 +61,7 @@ Computational Statistics Handbook with MATLAB 2002.
 julia> ADD LATER
 ```
 """
-function BCaBoot(x, y, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::Vector, y::Vector, func; iter::Int64=10000, α::Float64=0.05)
     θₛ = func(x,y)
     boot = zeros(iter)
     
@@ -73,6 +73,39 @@ function BCaBoot(x, y, func; iter::Int64=10000, α::Float64=0.05)
         boot[i] = func(xTemp, yTemp)
     end
     
+    ## Calculate bias using invcdf of number of bootstrap replicates below sample statistic
+    ## over the number of iterations
+    bias = quantile(Normal(), sum(boot .< θₛ)/iter)
+    
+    ## Estimate acceleration using jackknife
+    je = jackknifeEstimate(x, y, func, θₛ)
+    a = sum(je.^3)/(6*sum(je.^2)^(3/2))
+    
+    ## Standard Percentile CIs
+    z = quantile(Normal(), [α/2, 1-α/2])
+
+    ## Bias-corrected accelerated CIs
+    p = @. cdf(Normal(), bias + (bias + z)/(1-a*(bias+z)))
+    BCa = quantile(boot, p)
+    
+    return Bootstrap(boot, ConfidenceInterval(BCa))
+end
+
+function BCaBoot(x::Vector, ys::Vector{Vector}, func; iter::Int64=10000, α::Float64=0.05)
+    θₛArr = func.(x,y)
+    boot = fill(0.0, (iter, length(ys)))
+    
+    ## Resample with replacement to generate arrays of the same size as the original sample
+    ## and recalculate the summary statistic
+    for i in 1:iter
+        xTemp = sample(x, length(x), replace=true)
+        for j in 1:length(ys)
+            yTemp = sample(ys[j], length(ys[j]), replace=true)
+            boot[i,j] = func(xTemp, yTemp)
+        end
+    end
+    println("hurrah!")
+
     ## Calculate bias using invcdf of number of bootstrap replicates below sample statistic
     ## over the number of iterations
     bias = quantile(Normal(), sum(boot .< θₛ)/iter)

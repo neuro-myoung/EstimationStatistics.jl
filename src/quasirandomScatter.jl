@@ -36,14 +36,11 @@ end
 
 function quasirandomScatter(x::Vector, y::Vector; order=:none, squish=0.9::Float64, kwargs...)
 
-	plt = scatter(quasirandom(x, y; order=order, squish), y; kwargs...)
+	plt = scatter(quasirandom(x, y; order=order, squish), y, xticks=(0.5:1:length(unique(x))+0.5, [unique(x)]); kwargs...)
 
 	return plt
 end
 
 function quasirandomScatter!(x, y; order=:none, squish=0.9, kwargs...)
-
-	plt=scatter(quasirandom(x, y; order=order, squish), y; kwargs...)
-
-	return plt
+	scatter!(quasirandom(x, y; order=order, squish), y, xticks=(0.5:1:length(unique(x))+0.5, [unique(x)]); kwargs...)
 end

@@ -22,19 +22,21 @@ function gardnerAltman!(plt, x, control, test, b; shape_outline=false, kwargs...
     end
 
     lims = ylims(plt)
-    yoffset = (mean(test) - lims[1])
+    yoffset = [mean(test) - lims[1], lims[2] - mean(test)]
     println(yoffset)
 
-    p2 = plot(kdeShape, xlim = (-1, xmax), 
-        ylim = lims .- yoffset, ymirror = true, xticks=([0], ["Test-Control"]); kwargs..., linewidth=lw)
+    shapeCenter = mean(b.boot)
+
+    plt2 = plot(kdeShape, xlim = (-1, xmax), 
+        ylim = (shapeCenter-yoffset[1], shapeCenter + yoffset[2]), ymirror = true, xticks=([0], ["Test-Control"]); kwargs..., linewidth=lw)
     hline!([0], linewidth=1, color=:black)
     hline!([mean(b.boot)], linewidth=1, color=:black)
     
     plot!([x[1], x[1]], [lb, ub], color=:black; kwargs...)
 
-    scatter!([x[1]], [mean(b.boot)]; kwargs...)
+    scatter!([x[1]], [shapeCenter]; kwargs...)
     l = @layout [a b{0.3w}]
-    pGA = plot(plt, p2, layout=l)
+    pGA = plot(plt, plt2, layout=l)
 
     return pGA
 end
@@ -64,35 +66,6 @@ function estimationPlot(x, xLocs, bootArray; sigTests=:none, zoffset=1.75, scale
     end
 
     plt = plot(shapes[1]; kwargs...)
-	
-	if sigTests != :none
-		
-		for row in eachrow(sigTests)
-			plot!(
-				[
-					(xLocs[row.loc1]-0.5*scaleFactor)/2,
-					(xLocs[row.loc2]-0.5*scaleFactor)/2
-				], 
-			repeat([maximum(ubs) + 0.1*(maximum(ubs) - minimum(lbs))], 2), 
-			color=:black,
-			linewidth=2)
-			
-			if row.pval >= 0.05
-				mytext = "ns"
-			elseif row.pval < 0.05 && row.pval >= 0.01
-				mytext = "*"
-			elseif row.pval < 0.01 && row.pval >= 0.001
-				mytext = "**"
-			else
-				mytext = "***"
-			end
-			
-			annotate!(mean([(xLocs[row.loc1]-0.5*scaleFactor)/2,
-					(xLocs[row.loc2]-0.5*scaleFactor)/2]), 
-                    zoffset*(maximum(ubs) + 0.1*(maximum(ubs) - minimum(lbs))),
-                    text(mytext, annotationSize))
-		end
-	end
     
     for i in 1:length(shapes)
         if i > 1
