@@ -2,17 +2,16 @@ module EstimationStatistics
 
 using Plots
 using KernelDensity
-using Measures
 using StatsBase
-using Distributions
 using Statistics
 using DataFrames
-using DataStructures
+using Distributions
+
 
 include("quasirandomScatter.jl")
 include("jackknife.jl")
 include("bootstrap.jl")
-include("estimationPlot.jl")
+include("estimationPlots.jl")
 include("addSummaryStat.jl")
 
 struct ConfidenceInterval
@@ -30,7 +29,7 @@ end
 Base.broadcastable(x::Bootstrap) = Ref(x)
 
 export Bootstrap, ConfidenceInterval
-export quasirandomScatter, addSummaryStat!, estimationPlot, quasirandomScatter!
+export quasirandomScatter, addSummaryStat!, gardnerAltman!, quasirandomScatter!
 export meanDiff, medianDiff, BCaBoot
 
 end

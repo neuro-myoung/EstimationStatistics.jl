@@ -1,4 +1,4 @@
-function gardnerAltman(plt, x, control, test, b::Bootstrap; shape_outline=false, kwargs...)
+function gardnerAltman!(plt, x, control, test, b; shape_outline=false, kwargs...)
     k = kde(b.boot)
     lb = b.ci.low
     ub = b.ci.high
