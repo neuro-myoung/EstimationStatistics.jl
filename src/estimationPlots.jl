@@ -32,9 +32,8 @@ function gardnerAltman!(plt, x, control, test, b; shape_outline=false, kwargs...
     hline!([0], linewidth=1, color=:black)
     hline!([mean(b.boot)], linewidth=1, color=:black)
     
-    plot!([x[1], x[1]], [lb, ub], color=:black; kwargs...)
-
-    scatter!([x[1]], [shapeCenter]; kwargs...)
+    plot!([0, 0], [lb, ub], color=:black; kwargs...)
+    scatter!([0], [shapeCenter]; kwargs...)
     l = @layout [a b{0.3w}]
     pGA = plot(plt, plt2, layout=l)
 

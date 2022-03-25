@@ -6,9 +6,8 @@
 
 
 ## Description
-Estimation plots offer a more transparent representation of data and focuses on the conveying the effect size and its confidence interval using bootstrapping as opposed to null-hypothesis testing. One of the advantages of bootstrapping is that it does not make strong assumptions about the shape of the underlying distribution such as the normality assumption of parametric tests. Instead it relies on resampling sample distributions many thousands of times and only assumes that our sample distribution accurately represents the distribution of the underlying population. This package offers bias-corrected and accelerated bootstrapping and a few convenenient extensions to Julia's Plots.jl for making estimation plots. This was in part inspired by the python package DABEST. 
+Estimation plots offer a more transparent representation of data and focuses on the conveying the effect size and its confidence interval using bootstrapping as opposed to null-hypothesis testing. Some of the advantages of bootstrapping are that it does not make strong assumptions about the shape of the underlying distribution. Instead it only assumes that the distribution of our sample is representative of the population distribution. It also allows more flexibility in the summary statistic of interest (e.g. ratios, median differences) that are otherwise difficult to analyze statistically. This package offers bias-corrected and accelerated bootstrapping and a few convenenient extensions to Julia's Plots.jl for making estimation plots. This was in part inspired by the python package DABEST. 
 
-<br>
 <br>
 <br>
 
@@ -21,13 +20,11 @@ Estimation plots offer a more transparent representation of data and focuses on 
 
 <br>
 <br>
-<br>
 
 ## Built-in Boostrap methods
 
 * Bias-corrected and accelerated bootstrap
 
-<br>
 <br>
 <br>
 
@@ -38,7 +35,6 @@ Currently implemented:
 | Quasirandom Scatter + Gardner-Altman Plot | Two-group estimation plot |    Unpaired T-test    |
 | Tufte Slopegraph + Garnder-Altman Plot | Paired estimation plot | Paired T-test        |
 
-<br>
 <br>
 <br>
 
@@ -52,7 +48,6 @@ Works in progress:
 
 <br>
 <br>
-<br>
 
 ## Resources
 
@@ -62,14 +57,13 @@ To learn more about estimation statistics I recommend the following:
 
 <br>
 <br>
-<br>
 
 To learn more about different bootstrapping methods I recommend the following:
 
 [Bootstrapping (Wikipedia)](https://en.wikipedia.org/wiki/Bootstrapping_(statistics))
+
 [Bootstrap Confidence Intervals by Nathaiel E. Helwig](http://users.stat.umn.edu/~helwig/notes/bootci-Notes.pdf)
 
-<br>
 <br>
 <br>
 
@@ -77,11 +71,18 @@ To learn more about different bootstrapping methods I recommend the following:
 
 Before you begin make sure you have Julia v1.6 or higher (It may work on older versions but was not tested)
 
+<br>
+<br>
+
 ## Installation
 
-To be added
+<br>
+<br>
 
-## Functionality
+## Example
+
+<br>
+<br>
 
 ## Contributing
 To contribute to **EstimationStatistics.jl**, follow these steps:
