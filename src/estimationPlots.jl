@@ -4,7 +4,6 @@ function gardnerAltman!(plt, x, control, test, b; shape_outline=false, kwargs...
     ub = b.ci.high
     lbTrimmed = lb .- 0.15 .* (ub .- lb)
     ubTrimmed = ub .+ 0.15 .* (ub .- lb)
-    shapes = []
             
     subset = findall(x -> x >= lbTrimmed && x <= ubTrimmed, k.x)
     subX = k.x[subset]
@@ -12,7 +11,6 @@ function gardnerAltman!(plt, x, control, test, b; shape_outline=false, kwargs...
     kdeShape = Shape(vcat([0], subY, [0]), vcat(minimum(subX), 
         subX, maximum(subX)))
 
-    xmin = minimum(k.density) - 0.25 * (maximum(k.density) - minimum(k.density))
     xmax = maximum(k.density) + 0.25 * (maximum(k.density) - minimum(k.density))
 
     if shape_outline == true

@@ -1,7 +1,15 @@
 vandercorput(num::Integer, base::Integer) = sum(d * Float64(base) ^ -ex for (ex,d) in enumerate(digits(num, base=base)))
 
-function quasirandom(x::Vector, y::Vector; order=:none, squish=0.9::Float64)
-		
+function quasirandomScatter!(ax, x, y; order=:none, squish=0.9, xoffset=0, kwargs...)
+	scatter!(ax, quasirandom(x, y;order=order, squish) .+ xoffset, y; kwargs...)
+end
+
+function quasirandomScatter!(ax, x, y; order=:none, squish=0.9, xoffset=0, kwargs...)
+	scatter(quasirandom(x, y;order=order, squish) .+ xoffset, y; kwargs...)
+end
+
+function quasirandom(x, y;order=:none, squish=0.9)
+	
 	if order == :none
 		grps = unique(x)
 	else
@@ -32,15 +40,4 @@ function quasirandom(x::Vector, y::Vector; order=:none, squish=0.9::Float64)
 	x_jitter = xTemp .+ width./maxDensity[nGroups] .*  (q .- 0.5) .* 2 .* d
 
 	return x_jitter .- 0.5
-end
-
-function quasirandomScatter(x::Vector, y::Vector; order=:none, squish=0.9::Float64, kwargs...)
-
-	plt = scatter(quasirandom(x, y; order=order, squish), y, xticks=(0.5:1:length(unique(x))+0.5, unique(x)); kwargs...)
-
-	return plt
-end
-
-function quasirandomScatter!(x, y; order=:none, squish=0.9, kwargs...)
-	scatter!(quasirandom(x, y; order=order, squish), y, xticks=(0.5:1:length(unique(x))+0.5, unique(x)); kwargs...)
 end

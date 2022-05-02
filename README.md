@@ -1,8 +1,6 @@
 # EstimationStatistics
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/neuro-myoung/EstimationStatistics.jl?svg=true)](https://ci.appveyor.com/project/neuro-myoung/EstimationStatistics-jl)
-[![Coverage](https://codecov.io/gh/neuro-myoung/EstimationStatistics.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/neuro-myoung/EstimationStatistics.jl)
-[![Coverage](https://coveralls.io/repos/github/neuro-myoung/EstimationStatistics.jl/badge.svg?branch=master)](https://coveralls.io/github/neuro-myoung/EstimationStatistics.jl?branch=master)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/neuro-myoung/EstimationStatistics.jl/blob/10526d96dfbec26790f3468ab99ad473dbb48dac/LICENSE)
 
 
 ## Description

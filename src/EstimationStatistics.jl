@@ -12,8 +12,7 @@ include("quasirandomScatter.jl")
 include("jackknife.jl")
 include("bootstrap.jl")
 include("estimationPlots.jl")
-include("addSummaryStat.jl")
-
+      
 struct ConfidenceInterval
     low::Float64
     high::Float64
@@ -29,7 +28,7 @@ end
 Base.broadcastable(x::Bootstrap) = Ref(x)
 
 export Bootstrap, ConfidenceInterval
-export quasirandomScatter, addSummaryStat!, gardnerAltman!, quasirandomScatter!
+export quasirandom, quasirandomScatter, quasirandomScatter!, gardnerAltman!
 export meanDiff, medianDiff, BCaBoot
 
 end
