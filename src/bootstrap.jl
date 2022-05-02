@@ -26,12 +26,13 @@ function medianDiff(x, y)
     return median(x) - median(y)
 end
 
-function BCaBoot(x::AbstractArray, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::AbstractArray, func; iter::Int64=10000, α::Float64=0.05, seed=23)
     θₛ = func(x)
     boot = zeros(iter)
+    rng = MersenneTwister(seed)
     
     for i in 1:iter
-        xTemp = sample(x, length(x), replace=true)
+        xTemp = sample(rng, x, length(x), replace=true)
         boot[i] = func(xTemp)
     end
     
@@ -61,15 +62,16 @@ Computational Statistics Handbook with MATLAB 2002.
 julia> ADD LATER
 ```
 """
-function BCaBoot(x::AbstractArray, y::AbstractArray, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::AbstractArray, y::AbstractArray, func; iter::Int64=10000, α::Float64=0.05, seed=23)
     θₛ = func(x,y)
     boot = zeros(iter)
+    rng = MersenneTwister(seed)
     
     ## Resample with replacement to generate arrays of the same size as the original sample
     ## and recalculate the summary statistic
     for i in 1:iter
-        xTemp = sample(x, length(x), replace=true)
-        yTemp = sample(y, length(y), replace=true)
+        xTemp = sample(rng, x, length(x), replace=true)
+        yTemp = sample(rng, y, length(y), replace=true)
         boot[i] = func(xTemp, yTemp)
     end
     
@@ -91,16 +93,17 @@ function BCaBoot(x::AbstractArray, y::AbstractArray, func; iter::Int64=10000, α
     return Bootstrap(boot, ConfidenceInterval(BCa))
 end
 
-function BCaBoot(x::Vector, ys::Vector{Vector}, func; iter::Int64=10000, α::Float64=0.05)
+function BCaBoot(x::Vector, ys::Vector{Vector}, func; iter::Int64=10000, α::Float64=0.05, seed=23)
     θₛArr = func.(x,y)
     boot = fill(0.0, (iter, length(ys)))
+    rng = MersenneTwister(seed)
     
     ## Resample with replacement to generate arrays of the same size as the original sample
     ## and recalculate the summary statistic
     for i in 1:iter
-        xTemp = sample(x, length(x), replace=true)
+        xTemp = sample(rng, x, length(x), replace=true)
         for j in 1:length(ys)
-            yTemp = sample(ys[j], length(ys[j]), replace=true)
+            yTemp = sample(rng, ys[j], length(ys[j]), replace=true)
             boot[i,j] = func(xTemp, yTemp)
         end
     end
