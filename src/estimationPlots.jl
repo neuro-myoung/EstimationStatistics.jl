@@ -21,7 +21,6 @@ function gardnerAltman!(plt, x, control, test, b; shape_outline=false, kwargs...
 
     lims = ylims(plt)
     yoffset = [mean(test) - lims[1], lims[2] - mean(test)]
-    println(yoffset)
 
     shapeCenter = mean(b.boot)
 

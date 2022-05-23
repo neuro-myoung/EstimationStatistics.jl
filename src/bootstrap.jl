@@ -88,6 +88,7 @@ function BCaBoot(x::AbstractArray, y::AbstractArray, func; iter::Int64=10000, α
 
     ## Bias-corrected accelerated CIs
     p = @. cdf(Normal(), bias + (bias + z)/(1-a*(bias+z)))
+    println(je)
     BCa = quantile(boot, p)
     
     return Bootstrap(boot, ConfidenceInterval(BCa))

@@ -6,6 +6,7 @@ using StatsBase
 using Statistics
 using DataFrames
 using Distributions
+using Random
 
 
 include("quasirandomScatter.jl")
